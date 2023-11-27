@@ -73,6 +73,7 @@ catkin_package(
     ${PROJECT_NAME}
     nano_gicp
     nanoflann
+    map_align
 )
 
 include_directories(include)
@@ -100,6 +101,12 @@ add_library(nano_gicp STATIC
 )
 target_link_libraries(nano_gicp ${PCL_LIBRARIES} ${OpenMP_LIBS} nanoflann)
 
+#Map Align library
+add_library(map_align STATIC
+  src/map_align/map_align.cc
+)
+target_link_libraries(map_align ${PCL_LIBRARIES} ${OpenMP_LIBS} nano_gicp)
+
 # Odometry Node
 add_executable(dlio_odom_node src/dlio/odom_node.cc src/dlio/odom.cc)
 add_dependencies(dlio_odom_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
@@ -112,8 +119,14 @@ add_dependencies(dlio_map_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_genera
 target_compile_options(dlio_map_node PRIVATE ${OpenMP_FLAGS})
 target_link_libraries(dlio_map_node ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenMP_LIBS} Threads::Threads)
 
+# Map Alignment Node
+add_executable (map_align_node src/map_align/map_align_node_test.cc src/map_align/map_align_node.cc )
+add_dependencies(map_align_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
+target_compile_options(map_align_node PRIVATE ${OpenMP_FLAGS})
+target_link_libraries(map_align_node ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenMP_LIBS} Threads::Threads map_align)
+
 # Binaries
-install( TARGETS dlio_odom_node dlio_map_node
+install( TARGETS dlio_odom_node dlio_map_node map_align_node
          DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION} )
 install( DIRECTORY cfg launch
          DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} )

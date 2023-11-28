@@ -1,0 +1,16 @@
+
+dlio:
+
+  state:
+    quat:
+      w: 0.
+      x: 0.
+      y: 0.
+      z: 1.0
+
+    pose:
+      x: 7.88
+      y: 6.72
+      z: 1.82
+  
+  map_link: "/home/nakul/Desktop/vectr/ws/src/dlio_map.pcd"

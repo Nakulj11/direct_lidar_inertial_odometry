@@ -10,6 +10,8 @@ class TestNode{
 
         ros::NodeHandle nh;
         ros::Subscriber pcl_sub;
+        map_align::MapAlign::State state;
+        std::string map_link = "";
         pcl::PointCloud<PointType>::Ptr scan_;
 
     

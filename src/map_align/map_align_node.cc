@@ -5,18 +5,18 @@ TestNode::TestNode(ros::NodeHandle node_handle): nh(node_handle){
 
             float w, x, y, z;
 
-            ros::param::param<float>("/dlio/state/quat/w", w, 0.);
-            ros::param::param<float>("/dlio/state/quat/x", x, 0.);
-            ros::param::param<float>("/dlio/state/quat/y", y, 0.);
-            ros::param::param<float>("/dlio/state/quat/z", z, 0.);
+            ros::param::param<float>("~dlio/state/quat/w", w, 0.);
+            ros::param::param<float>("~dlio/state/quat/x", x, 0.);
+            ros::param::param<float>("~dlio/state/quat/y", y, 0.);
+            ros::param::param<float>("~dlio/state/quat/z", z, 0.);
 
             this->state.q = Eigen::Quaternionf(w, x, y, z);
 
-            ros::param::param<float>("/dlio/state/pose/x", this->state.p[0], 0.);
-            ros::param::param<float>("/dlio/state/pose/y", this->state.p[1], 0.);
-            ros::param::param<float>("/dlio/state/pose/z", this->state.p[2], 0.);
+            ros::param::param<float>("~dlio/state/pose/x", this->state.p[0], 0.);
+            ros::param::param<float>("~dlio/state/pose/y", this->state.p[1], 0.);
+            ros::param::param<float>("~dlio/state/pose/z", this->state.p[2], 0.);
 
-            ros::param::param<std::string>("~dlio/map_link", this->map_link , "/home/nakul/Desktop/vectr/ws/src/dlio_map.pcd");
+            ros::param::param<std::string>("~dlio/map_link", this->map_link , "/dlio_map.pcd");
 
         }
 

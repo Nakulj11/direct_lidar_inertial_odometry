@@ -14,6 +14,7 @@ class MapAlign{
 
         State align(pcl::PointCloud<PointType>::ConstPtr map, pcl::PointCloud<PointType>::ConstPtr instantaneousCloud, State& guess);
 
+        pcl::PointCloud<PointType>::Ptr getAlignedScan();
         
 
     private:
@@ -21,6 +22,8 @@ class MapAlign{
 
         Eigen::Matrix4f stateToMatrix(State state);
         MapAlign::State matrixToState(Eigen::Matrix4f mat);
+
+        pcl::PointCloud<PointType>::Ptr aligned;
 
 };
 }

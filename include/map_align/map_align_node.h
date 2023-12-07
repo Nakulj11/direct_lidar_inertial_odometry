@@ -1,8 +1,8 @@
 #include "map_align/map_align.h"
 
-class TestNode{
+class MapAlignNode{
     public:
-        TestNode(ros::NodeHandle node_handle);
+        MapAlignNode(ros::NodeHandle node_handle);
 
     private:
 
@@ -14,5 +14,14 @@ class TestNode{
         std::string map_link = "";
         pcl::PointCloud<PointType>::Ptr scan_;
 
+        ros::Timer publish_timer;
+
+        void publishMaps(const ros::TimerEvent& e);
+
+        ros::Publisher map_pub;
+        ros::Publisher aligned_scan_pub;
+
+        pcl::PointCloud<PointType>::Ptr map;
+        pcl::PointCloud<PointType>::Ptr alignedScan;
     
 };

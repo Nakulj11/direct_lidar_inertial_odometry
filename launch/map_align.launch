@@ -1,18 +1,29 @@
 <launch>
 
+  <arg name="rviz" default="true"/>
+
   <arg name="robot_namespace" default="robot"/>
 
   <arg name="path" default="/home/nakul/Desktop/vectr/ws/src/" />
   <arg name="file_1" default="bag_3.bag" />
+
+
+  <!-- Fixed Frame  -->
+  <node pkg="tf" type="static_transform_publisher" name="my_static_transform_publisher" output="screen"
+        args="0 0 0 0 0 0 1 map my_frame 10"/>
 
   <!-- DLIO Odometry Node -->
   <node ns="$(arg robot_namespace)" name="map_align" pkg="direct_lidar_inertial_odometry" type="map_align_node" output="screen" clear_params="true">
 
     <!-- Load parameters -->
     <rosparam file="$(find direct_lidar_inertial_odometry)/cfg/map_align_params.yaml" command="load"/>
+    
 
   </node>
 
   <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg path)$(arg file_1)"/>
+
+  <node pkg="rviz" type="rviz" name="dlio_rviz" args="-d $(find direct_lidar_inertial_odometry)/launch/map_align.rviz" if="$(arg rviz)"/>
+
 
 </launch>

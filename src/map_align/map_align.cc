@@ -8,10 +8,11 @@ namespace map_align{
 
         Eigen::Matrix4f guessTransform = stateToMatrix(guess);
 
+
         this->gicp.setInputSource(instantaneousCloud);
         this->gicp.setInputTarget(map);
 
-        pcl::PointCloud<PointType>::Ptr aligned (boost::make_shared<pcl::PointCloud<PointType>>());
+        this->aligned = pcl::PointCloud<PointType>::Ptr (boost::make_shared<pcl::PointCloud<PointType>>());
         this->gicp.align(*aligned, guessTransform);
         
 
@@ -19,7 +20,9 @@ namespace map_align{
 
     }
 
-    
+    pcl::PointCloud<PointType>::Ptr MapAlign::getAlignedScan(){
+        return this->aligned;
+    }
 
     Eigen::Matrix4f MapAlign::stateToMatrix(map_align::MapAlign::State state){
         

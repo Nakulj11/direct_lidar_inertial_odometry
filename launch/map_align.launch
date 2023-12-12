@@ -21,7 +21,7 @@
 
   </node>
 
-  <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg path)$(arg file_1)"/>
+  <node pkg="rosbag" type="play" name="player" output="screen" args="--clock --loop $(arg path)$(arg file_1) "/>
 
   <node pkg="rviz" type="rviz" name="dlio_rviz" args="-d $(find direct_lidar_inertial_odometry)/launch/map_align.rviz" if="$(arg rviz)"/>
 

@@ -120,7 +120,7 @@ target_compile_options(dlio_map_node PRIVATE ${OpenMP_FLAGS})
 target_link_libraries(dlio_map_node ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenMP_LIBS} Threads::Threads)
 
 # Map Alignment Node
-add_executable (map_align_node src/map_align/map_align_node_test.cc src/map_align/map_align_node.cc )
+add_executable (map_align_node src/map_align/map_align_node.cc src/map_align/align.cc )
 add_dependencies(map_align_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
 target_compile_options(map_align_node PRIVATE ${OpenMP_FLAGS})
 target_link_libraries(map_align_node ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenMP_LIBS} Threads::Threads map_align)

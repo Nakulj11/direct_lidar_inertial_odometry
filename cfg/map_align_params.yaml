@@ -1,6 +1,6 @@
 
 dlio:
-
+  use_loaded_state: true
   state:
     quat:
       w: 0.

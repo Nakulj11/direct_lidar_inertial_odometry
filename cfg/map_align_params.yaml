@@ -3,14 +3,14 @@ dlio:
   use_loaded_state: true
   state:
     quat:
-      w: 0.
-      x: 0.
-      y: 0.
-      z: 1.0
+      w: 1
+      x: 0
+      y: 0
+      z: 0
 
     pose:
-      x: 7.88
-      y: 6.72
-      z: 1.82
+      x: 0
+      y: 0
+      z: 0
   
-  map_link: "/home/nakul/Desktop/vectr/ws/src/dlio_map.pcd"
+  map_link: "/home/nakul/Desktop/vectr/ws/src/map_1.pcd"

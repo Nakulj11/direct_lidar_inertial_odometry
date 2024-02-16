@@ -125,8 +125,13 @@ add_dependencies(map_align_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gener
 target_compile_options(map_align_node PRIVATE ${OpenMP_FLAGS})
 target_link_libraries(map_align_node ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenMP_LIBS} Threads::Threads map_align)
 
+add_executable (keyframe_align_node src/map_align/keyframe_align.cc )
+add_dependencies(keyframe_align_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
+target_compile_options(keyframe_align_node PRIVATE ${OpenMP_FLAGS})
+target_link_libraries(keyframe_align_node ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenMP_LIBS} Threads::Threads nano_gicp)
+
 # Binaries
-install( TARGETS dlio_odom_node dlio_map_node map_align_node
+install( TARGETS dlio_odom_node dlio_map_node map_align_node keyframe_align_node
          DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION} )
 install( DIRECTORY cfg launch
          DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} )

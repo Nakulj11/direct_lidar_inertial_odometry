@@ -1,0 +1,32 @@
+<launch>
+
+  <arg name="rviz" default="true"/>
+
+  <arg name="robot_namespace" default="robot"/>
+
+  <arg name="files" default="$(find direct_lidar_inertial_odometry)/keyframeBags/keyframeBag_2024-02-14-22-30-37.bag" />
+
+
+
+  <!-- Fixed Frame  -->
+  <node pkg="tf" type="static_transform_publisher" name="my_static_transform_publisher" output="screen"
+        args="0 0 0 0 0 0 1 map my_frame 10"/>
+
+  <!-- DLIO Odometry Node -->
+  <node ns="$(arg robot_namespace)" name="keyframe_align" pkg="direct_lidar_inertial_odometry" type="keyframe_align_node" output="screen" clear_params="true">
+
+    <!-- Load parameters -->
+    <rosparam file="$(find direct_lidar_inertial_odometry)/cfg/map_align_params.yaml" command="load"/>
+    
+
+  </node>
+
+  <node pkg="rosbag" type="play" name="player" output="screen" args="--topics /robot/dlio/odom_node/pointcloud/keyframe --clock --wait-for-subscribers -i $(arg files)"/>
+
+
+  <node pkg="rviz" type="rviz" name="dlio_rviz" args="-d $(find direct_lidar_inertial_odometry)/rviz/keyframe_align.rviz" if="$(arg rviz)"/>
+
+
+</launch>
+
+<!-- <node pkg="rosbag" type="play" name="player" output="screen" args="-clock -loop $(arg path)$(arg file_1) "/> -->

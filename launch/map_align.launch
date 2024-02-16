@@ -5,7 +5,7 @@
   <arg name="robot_namespace" default="robot"/>
 
   <arg name="path" default="/home/nakul/Desktop/vectr/ws/src/" />
-  <arg name="file_1" default="bag_3.bag" />
+  <arg name="file_1" default="b.bag" />
 
 
   <!-- Fixed Frame  -->
@@ -21,9 +21,13 @@
 
   </node>
 
-  <node pkg="rosbag" type="play" name="player" output="screen" args="--clock --loop $(arg path)$(arg file_1) "/>
+  <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map2_pub" output="screen" args="$(find direct_lidar_inertial_odometry)/../map_2.pcd 0.1">
+    <remap from="/cloud_pcd" to="/robot/os_cloud_node/points"/>
+  </node>
 
-  <node pkg="rviz" type="rviz" name="dlio_rviz" args="-d $(find direct_lidar_inertial_odometry)/launch/map_align.rviz" if="$(arg rviz)"/>
+  <node pkg="rviz" type="rviz" name="dlio_rviz" args="-d $(find direct_lidar_inertial_odometry)/rviz/map_align.rviz" if="$(arg rviz)"/>
 
 
 </launch>
+
+<!-- <node pkg="rosbag" type="play" name="player" output="screen" args="-clock -loop $(arg path)$(arg file_1) "/> -->
